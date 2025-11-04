@@ -3,10 +3,23 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
+import { SidebarProvider, useSidebar } from "@/context/SidebarContext";
+import AppHeader from "./layout/AppHeader";
+import AppSidebar from "./layout/AppSidebar";
+import Backdrop from "./layout/Backdrop";
+import React from "react";
+import { ThemeProvider } from "@/context/ThemeContext";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+function AdminContent({ children }: { children: React.ReactNode }) {
+  const { isExpanded, isHovered, isMobileOpen } = useSidebar();
   const { user, loading } = useAuth();
   const router = useRouter();
+
+  const mainContentMargin = isMobileOpen
+    ? "ml-0"
+    : isExpanded || isHovered
+    ? "lg:ml-[290px]"
+    : "lg:ml-[90px]";
 
   useEffect(() => {
     if (!loading && !user) {
@@ -22,16 +35,30 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
   }
 
-  if (!user) {
-    return null;
-  }
+  if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="p-4 bg-white shadow-md">
-        <h1 className="text-xl font-semibold">Admin Panel</h1>
-      </nav>
-      <main className="p-6">{children}</main>
+      <ThemeProvider>
+    <div className="min-h-screen xl:flex">
+      <AppSidebar />
+      <Backdrop />
+      <div
+        className={`flex-1 transition-all duration-300 ease-in-out ${mainContentMargin}`}
+      >
+        <AppHeader />
+        <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+          {children}
+        </div>
+      </div>
     </div>
+    </ThemeProvider>
+  );
+}
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <SidebarProvider>
+      <AdminContent>{children}</AdminContent>
+    </SidebarProvider>
   );
 }
