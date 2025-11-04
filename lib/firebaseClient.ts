@@ -1,4 +1,4 @@
-import { initializeApp, getApps } from "firebase/app";
+import { initializeApp, getApps, getApp  } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -11,6 +11,7 @@ const firebaseConfig = {
 };
 
 // Only initialize once (important in Next.js)
-const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
 
 export const auth = getAuth(app);
