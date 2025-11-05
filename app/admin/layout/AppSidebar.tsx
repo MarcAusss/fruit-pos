@@ -28,34 +28,34 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <Image src={GridIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={GridIcon} alt="Dashboard"  />,
     name: "Dashboard",
     subItems: [{ name: "Ecommerce", path: "/", pro: false }],
   },
   {
-    icon: <Image src={CalenderIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={CalenderIcon} alt="Dashboard"  />,
     name: "Calendar",
     path: "/calendar",
   },
   {
-    icon: <Image src={UserCircleIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={UserCircleIcon} alt="Dashboard"  />,
     name: "User Profile",
     path: "/profile",
   },
 
   {
     name: "Forms",
-    icon: <Image src={ListIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={ListIcon} alt="Dashboard"  />,
     subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
   },
   {
     name: "Tables",
-    icon: <Image src={TableIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={TableIcon} alt="Dashboard"  />,
     subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
   },
   {
     name: "Pages",
-    icon: <Image src={PageIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={PageIcon} alt="Dashboard"  />,
     subItems: [
       { name: "Blank Page", path: "/blank", pro: false },
       { name: "404 Error", path: "/error-404", pro: false },
@@ -65,7 +65,7 @@ const navItems: NavItem[] = [
 
 const othersItems: NavItem[] = [
   {
-    icon: <Image src={PieChartIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={PieChartIcon} alt="Dashboard"  />,
     name: "Charts",
     subItems: [
       { name: "Line Chart", path: "/line-chart", pro: false },
@@ -73,7 +73,7 @@ const othersItems: NavItem[] = [
     ],
   },
   {
-    icon: <Image src={BoxCubeIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={BoxCubeIcon} alt="Dashboard"  />,
     name: "UI Elements",
     subItems: [
       { name: "Alerts", path: "/alerts", pro: false },
@@ -85,7 +85,7 @@ const othersItems: NavItem[] = [
     ],
   },
   {
-    icon: <Image src={PlugInIcon} alt="Dashboard" width={24} height={24} />,
+    icon: <Image src={PlugInIcon} alt="Dashboard"  />,
     name: "Authentication",
     subItems: [
       { name: "Sign In", path: "/signin", pro: false },
@@ -344,7 +344,7 @@ const AppSidebar: React.FC = () => {
         </Link>
       </div>
       <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
-        <nav className="mb-6">
+        <nav className="mb-6 w-full">
           <div className="flex flex-col gap-4">
             <div>
               <h2

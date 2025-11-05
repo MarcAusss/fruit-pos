@@ -39,7 +39,7 @@ function AdminContent({ children }: { children: React.ReactNode }) {
 
   return (
       <ThemeProvider>
-    <div className="min-h-screen xl:flex">
+    <div className="min-h-screen xl:flex dark:bg-gray-900">
       <AppSidebar />
       <Backdrop />
       <div
