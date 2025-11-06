@@ -11,10 +11,10 @@ export default function Home() {
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
       <InteractiveFruitsCanvas />
       <div className="absolute z-10 text-center">
-        <h1 className="mb-6 text-6xl font-bold text-white">
+        <h1 className="mb-6 text-6xl font-bold text-black">
           Mayeth&lsquo;s Fruit Stand
         </h1>
-        <p className="text-xl text-white mb-8 max-w-md mx-auto">
+        <p className="text-xl text-black mb-8 max-w-md mx-auto">
           Fruits whole sale
         </p>
         <div className="flex gap-4 justify-center">

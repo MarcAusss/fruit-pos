@@ -4,17 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "@/context/SidebarContext";
+import { Users } from "lucide-react";
 import {
-  BoxCubeIcon,
   CalenderIcon,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
   ListIcon,
   PageIcon,
-  PieChartIcon,
-  PlugInIcon,
-  TableIcon,
   UserCircleIcon,
 } from "@/icons/index";
 import SidebarWidget from "./SidebarWidget";
@@ -28,70 +25,61 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <Image src={GridIcon} alt="Dashboard"  />,
+    icon: <Image src={GridIcon} alt="Dashboard" />,
     name: "Dashboard",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+    path: "/admin",
   },
   {
-    icon: <Image src={CalenderIcon} alt="Dashboard"  />,
-    name: "Calendar",
-    path: "/calendar",
+    icon: <Image src={CalenderIcon} alt="Dashboard" />,
+    name: "POS",
+    path: "/admin/pos",
   },
   {
-    icon: <Image src={UserCircleIcon} alt="Dashboard"  />,
-    name: "User Profile",
-    path: "/profile",
-  },
-
-  {
-    name: "Forms",
-    icon: <Image src={ListIcon} alt="Dashboard"  />,
-    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
+    name: "Transactions",
+    icon: <Image src={PageIcon} alt="Dashboard" />,
+    path: "/admin/transaction",
   },
   {
-    name: "Tables",
-    icon: <Image src={TableIcon} alt="Dashboard"  />,
-    subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  },
-  {
-    name: "Pages",
-    icon: <Image src={PageIcon} alt="Dashboard"  />,
+    name: "Inventory",
+    icon: <Image src={ListIcon} alt="Dashboard" />,
     subItems: [
-      { name: "Blank Page", path: "/blank", pro: false },
-      { name: "404 Error", path: "/error-404", pro: false },
+      { name: "View Inventory", path: "/admin/inventory", pro: false },
+      { name: "Add new recipt lists", path: "/admin/inventory/", pro: false },
     ],
   },
 ];
 
 const othersItems: NavItem[] = [
   {
-    icon: <Image src={PieChartIcon} alt="Dashboard"  />,
-    name: "Charts",
-    subItems: [
-      { name: "Line Chart", path: "/line-chart", pro: false },
-      { name: "Bar Chart", path: "/bar-chart", pro: false },
-    ],
+    icon: <Image src={UserCircleIcon} alt="Dashboard" />,
+    name: "User Profile",
+    path: "/admin/profile",
   },
-  {
-    icon: <Image src={BoxCubeIcon} alt="Dashboard"  />,
-    name: "UI Elements",
-    subItems: [
-      { name: "Alerts", path: "/alerts", pro: false },
-      { name: "Avatar", path: "/avatars", pro: false },
-      { name: "Badge", path: "/badge", pro: false },
-      { name: "Buttons", path: "/buttons", pro: false },
-      { name: "Images", path: "/images", pro: false },
-      { name: "Videos", path: "/videos", pro: false },
-    ],
+   {
+    icon: <Users/>,
+    name: "Manage Users",
+    path: "/admin/accounts"
   },
-  {
-    icon: <Image src={PlugInIcon} alt="Dashboard"  />,
-    name: "Authentication",
-    subItems: [
-      { name: "Sign In", path: "/signin", pro: false },
-      { name: "Sign Up", path: "/signup", pro: false },
-    ],
-  },
+  // {
+  //   icon: <Image src={BoxCubeIcon} alt="Dashboard" />,
+  //   name: "UI Elements",
+  //   subItems: [
+  //     { name: "Alerts", path: "/alerts", pro: false },
+  //     { name: "Avatar", path: "/avatars", pro: false },
+  //     { name: "Badge", path: "/badge", pro: false },
+  //     { name: "Buttons", path: "/buttons", pro: false },
+  //     { name: "Images", path: "/images", pro: false },
+  //     { name: "Videos", path: "/videos", pro: false },
+  //   ],
+  // },
+  // {
+  //   icon: <Image src={PlugInIcon} alt="Dashboard" />,
+  //   name: "Authentication",
+  //   subItems: [
+  //     { name: "Sign In", path: "/signin", pro: false },
+  //     { name: "Sign Up", path: "/signup", pro: false },
+  //   ],
+  // },
 ];
 
 const AppSidebar: React.FC = () => {
