@@ -1,7 +1,9 @@
 // firebase/config.js
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app"; // ✅ Add getApps, getApp
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage"; // optional if you’ll store images/files
+import { getAuth } from "firebase/auth"; // ✅ Import Auth
+
 
 // ✅ Your Firebase configuration
 const firebaseConfig = {
@@ -15,8 +17,8 @@ const firebaseConfig = {
 };
 
 // ✅ Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// ✅ Export Firestore & Storage (so other files can use it)
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+export const auth = getAuth(app);      // <--- ADD THIS
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+export default app;
