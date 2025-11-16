@@ -1,6 +1,10 @@
-import { initializeApp, getApps, getApp  } from "firebase/app";
+// src/lib/firebaseClient.ts
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
+// ✅ Your Firebase config
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
@@ -10,8 +14,10 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
 };
 
-// Only initialize once (important in Next.js)
+// ✅ Initialize Firebase App only once
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-
+// ✅ Export Firebase services
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
