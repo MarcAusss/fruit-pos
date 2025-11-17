@@ -1,18 +1,80 @@
 "use client";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
 import Input from "../form/input/InputField";
 import Label from "../form/Label";
 
+import { auth, db } from "@/lib/firebaseClient";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
+
 export default function UserInfoCard() {
   const { isOpen, openModal, closeModal } = useModal();
-  const handleSave = () => {
-    // Handle save logic here
-    console.log("Saving changes...");
-    closeModal();
+
+  const user = auth.currentUser;
+  const userId = user?.uid;
+
+  // ------------------------------
+  // FORM STATES
+  // ------------------------------
+  const [firstName, setFirstName] = useState("Loading...");
+  const [lastName, setLastName] = useState("Loading...");
+  const [phone, setPhone] = useState("Loading...");
+  const [bio, setBio] = useState("Loading...");
+  const [displayName, setDisplayName] = useState("Loading...");
+
+  // -----------------------------------
+  // FETCH USER DATA FROM FIRESTORE
+  // -----------------------------------
+  useEffect(() => {
+    if (!userId) return;
+
+    const userRef = doc(db, "users", userId);
+
+    // Real-time listener
+    const unsubscribe = onSnapshot(userRef, (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+
+        setFirstName(data.firstName || "");
+        setLastName(data.lastName || "");
+        setPhone(data.phone || "");
+        setBio(data.bio || "");
+        setDisplayName(data.displayName || "");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [userId]);
+
+  // -----------------------------------
+  // SAVE UPDATED DATA
+  // -----------------------------------
+  const handleSave = async () => {
+    if (!userId) return;
+
+    try {
+      await setDoc(
+        doc(db, "users", userId),
+        {
+          displayName,
+          firstName,
+          lastName,
+          phone,
+          bio,
+        },
+        { merge: true }
+      );
+
+      console.log("User updated successfully!");
+      closeModal();
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
   };
+
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -27,7 +89,7 @@ export default function UserInfoCard() {
                 First Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Musharof
+                {firstName}
               </p>
             </div>
 
@@ -36,16 +98,7 @@ export default function UserInfoCard() {
                 Last Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Chowdhury
-              </p>
-            </div>
-
-            <div>
-              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                Email address
-              </p>
-              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                randomuser@pimjo.com
+                {lastName}
               </p>
             </div>
 
@@ -54,7 +107,7 @@ export default function UserInfoCard() {
                 Phone
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                +09 363 398 46
+                {phone}
               </p>
             </div>
 
@@ -63,7 +116,7 @@ export default function UserInfoCard() {
                 Bio
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Team Manager
+                {bio}
               </p>
             </div>
           </div>
@@ -92,6 +145,7 @@ export default function UserInfoCard() {
         </button>
       </div>
 
+      {/* MODAL */}
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
         <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
           <div className="px-2 pr-14">
@@ -102,6 +156,7 @@ export default function UserInfoCard() {
               Update your details to keep your profile up-to-date.
             </p>
           </div>
+
           <form className="flex flex-col">
             <div className="custom-scrollbar h-[450px] overflow-y-auto px-2 pb-3">
               <div className="mt-7">
@@ -110,33 +165,58 @@ export default function UserInfoCard() {
                 </h5>
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+                  <div className="col-span-2">
+                    <Label>Display Name</Label>
+                    <Input
+                      type="text"
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
+                    />
+                  </div>
+
+                  {/* First Name */}
                   <div className="col-span-2 lg:col-span-1">
                     <Label>First Name</Label>
-                    <Input type="text" defaultValue="Musharof" />
+                    <Input
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
                   </div>
 
+                  {/* Last Name */}
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Last Name</Label>
-                    <Input type="text" defaultValue="Chowdhury" />
+                    <Input
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
                   </div>
 
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>Email Address</Label>
-                    <Input type="text" defaultValue="randomuser@pimjo.com" />
-                  </div>
-
+                  {/* Phone */}
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Phone</Label>
-                    <Input type="text" defaultValue="+09 363 398 46" />
+                    <Input
+                      type="text"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
                   </div>
 
+                  {/* Bio */}
                   <div className="col-span-2">
                     <Label>Bio</Label>
-                    <Input type="text" defaultValue="Team Manager" />
+                    <Input
+                      type="text"
+                      value={bio}
+                      onChange={(e) => setBio(e.target.value)}
+                    />
                   </div>
                 </div>
               </div>
             </div>
+
             <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
               <Button size="sm" variant="outline" onClick={closeModal}>
                 Close
