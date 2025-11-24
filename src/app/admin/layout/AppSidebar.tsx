@@ -44,7 +44,7 @@ const navItems: NavItem[] = [
     icon: <Image src={ListIcon} alt="Dashboard" />,
     subItems: [
       { name: "View Inventory", path: "/admin/inventory", pro: false },
-      { name: "Add new recipt lists", path: "/admin/inventory/", pro: false },
+      { name: "Add new product", path: "/admin/inventory/AddProduct", pro: false },
     ],
   },
 ];
@@ -60,26 +60,6 @@ const othersItems: NavItem[] = [
     name: "Manage Users",
     path: "/admin/accounts"
   },
-  // {
-  //   icon: <Image src={BoxCubeIcon} alt="Dashboard" />,
-  //   name: "UI Elements",
-  //   subItems: [
-  //     { name: "Alerts", path: "/alerts", pro: false },
-  //     { name: "Avatar", path: "/avatars", pro: false },
-  //     { name: "Badge", path: "/badge", pro: false },
-  //     { name: "Buttons", path: "/buttons", pro: false },
-  //     { name: "Images", path: "/images", pro: false },
-  //     { name: "Videos", path: "/videos", pro: false },
-  //   ],
-  // },
-  // {
-  //   icon: <Image src={PlugInIcon} alt="Dashboard" />,
-  //   name: "Authentication",
-  //   subItems: [
-  //     { name: "Sign In", path: "/signin", pro: false },
-  //     { name: "Sign Up", path: "/signup", pro: false },
-  //   ],
-  // },
 ];
 
 const AppSidebar: React.FC = () => {

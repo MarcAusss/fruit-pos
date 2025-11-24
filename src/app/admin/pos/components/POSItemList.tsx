@@ -41,25 +41,36 @@ export default function POSItemList({
                 className="object-contain rounded-lg"
               />
             </div>
-            <h3 className="text-gray-800 font-semibold">{item.name}</h3>
-            <p className="text-sm text-gray-500 mb-2">{item.brand}</p>
-            <p className="text-green-700 font-medium mb-3">₱{item.price}</p>
-
-            {/* Add / Remove Buttons */}
+            {/* <h3 className="text-gray-800 font-semibold">{item.name}</h3> */}
             <div className="flex items-center justify-between">
-              <button
-                onClick={() => removeFromCart(item)}
-                className="bg-red-100 text-red-600 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-200"
-              >
-                −
-              </button>
-              <span className="text-gray-800 font-semibold">{quantity}</span>
-              <button
-                onClick={() => addToCart(item)}
-                className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center hover:bg-green-200"
-              >
-                +
-              </button>
+              <p className="text-sm text-gray-500 mb-2">Brand: {item.brand}</p>
+              <p className="text-green-700 font-medium mb-3">
+                Size: {item.size}
+              </p>
+            </div>
+            <p className="text-green-700 font-medium mb-3">
+              Available: {item.quantity}
+            </p>
+            <div className="flex justify-between items-center">
+              <p className="text-green-700 font-medium mb-3 text-xl">
+                ₱{item.price}
+              </p>
+
+              <div className="flex items-center justify-center gap-5">
+                <button
+                  onClick={() => removeFromCart(item)}
+                  className="border-red-100 border-2 w-9 h-9 flex items-center justify-center hover:bg-red-200"
+                >
+                  −
+                </button>
+                <span className="text-gray-800 font-semibold">{quantity}</span>
+                <button
+                  onClick={() => addToCart(item)}
+                  className="border-green-100 border-2 text-green-600 w-9 h-9 flex items-center justify-center hover:bg-green-200"
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
         );
